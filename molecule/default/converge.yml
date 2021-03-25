@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ansible-mail"
+      include_role:
+        name: "ansible-mail"
+      tags:
+        - always
+  vars:
+    mail_domain: example.com
+    mail_forwarding:
+      - source: test1@example.com
+        target: test1@fake.com
+      - source: test2@example.com
+        target: test2@fake.com
