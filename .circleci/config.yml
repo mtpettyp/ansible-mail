@@ -22,4 +22,6 @@ jobs:
           paths:
             - "~/venv"
       - run:
-          command: molecule test
+          command: |
+            . ~/venv/bin/activate
+            molecule test
