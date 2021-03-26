@@ -8,13 +8,18 @@ jobs:
       - restore_cache:
           key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
+          name: Create virtualenv
           command: |
-            python -m virtualenv venv
-            . venv/bin/activate
+            cd ~
+            python -m virtualenv ~/venv
+      - run:
+          name: Install python dependencies
+          command: |
+            . ~/venv/bin/activate
             pip install -r requirements.txt
       - save_cache:
           key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
-            - "venv"
+            - "~/venv"
       - run:
           command: molecule test
