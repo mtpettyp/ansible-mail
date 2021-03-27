@@ -37,6 +37,7 @@ orbs:
               command: |
                 . ~/venv/bin/activate
                 molecule test
+
 workflows:
   build-test-deploy:
     jobs:
