@@ -38,8 +38,7 @@ orbs:
                 . ~/venv/bin/activate
                 molecule test
 workflows:
-  version: 2.1
-  test:
+  build-test-deploy:
     jobs:
       - molecule/test:
           role_name: ansible-mail
