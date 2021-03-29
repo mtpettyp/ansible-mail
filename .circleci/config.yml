@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  molecule: mtpettyp/molecule-orb@dev:alpha
+  molecule: mtpettyp/molecule-orb@1.0.0
 
 workflows:
   test:
