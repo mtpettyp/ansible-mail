@@ -1,46 +1,46 @@
 version: 2.1
 
-# orbs:
-#   molecule:
-jobs:
-  test:
-    parameters:
-      machine_image:
-        type: string
-        default: ubuntu-2004:202101-01
-        description: Machine image to use
-      role_name:
-        type: string
-        description: Name of the role to be tested
-    machine:
-      image: "<< parameters.machine_image >>"
-    working_directory: "~/<< parameters.role_name >>"
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run:
-          name: Create virtualenv
-          command: |
-            cd ~
-            python3 -m virtualenv ~/venv
-      - run:
-          name: Install python dependencies
-          command: |
-            . ~/venv/bin/activate
-            pip3 install -r requirements.txt
-      - save_cache:
-          key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "~/venv"
-      - run:
-          command: |
-            . ~/venv/bin/activate
-            molecule test
+orbs:
+  molecule:
+    jobs:
+      test:
+        parameters:
+          machine_image:
+            type: string
+            default: ubuntu-2004:202101-01
+            description: Machine image to use
+          role_name:
+            type: string
+            description: Name of the role to be tested
+        machine:
+          image: "<< parameters.machine_image >>"
+        working_directory: "~/<< parameters.role_name >>"
+        steps:
+          - checkout
+          - restore_cache:
+              key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          - run:
+              name: Create virtualenv
+              command: |
+                cd ~
+                python3 -m virtualenv ~/venv
+          - run:
+              name: Install python dependencies
+              command: |
+                . ~/venv/bin/activate
+                pip3 install -r requirements.txt
+          - save_cache:
+              key: deps-{{ .Branch }}-{{ checksum "requirements.txt" }}
+              paths:
+                - "~/venv"
+          - run:
+              command: |
+                . ~/venv/bin/activate
+                molecule test
 
 workflows:
-  build-test-deploy:
+  test:
     jobs:
-      - test:
+      - molecule/test:
           role_name: ansible-mail
 
