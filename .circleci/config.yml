@@ -43,4 +43,3 @@ workflows:
     jobs:
       - molecule/test:
           role_name: ansible-mail
-
