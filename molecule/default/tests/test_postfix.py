@@ -14,3 +14,6 @@ def test_services(host):
     assert virtual.exists
     assert virtual.contains("test1@example.com test1@fake.com")
     assert virtual.contains("test2@example.com test2@fake.com")
+
+    virtual = host.file("/etc/postfix/virtual.db")
+    assert virtual.exists

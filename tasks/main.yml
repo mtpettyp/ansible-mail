@@ -32,7 +32,7 @@
     mode: 0644
     create: yes
   with_items: "{{ mail_forwarding }}"
-  notify: Restart Postfix
+  notify: Create virtual.db file
 
 - name: Ensure Postfix is started and enabled at boot.
   service:
